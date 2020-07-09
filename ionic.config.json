@@ -1,0 +1,7 @@
+{
+  "name": "conquali",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
