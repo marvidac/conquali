@@ -27,14 +27,14 @@ export class FuncionarioService {
   }
 
   private update(funcionario: Funcionario) {
-    const sql = 'UPDATE funcionario SET nome = ? and contato = ? WHERE id = ?';
+    const sql = 'UPDATE funcionario SET nome = ?, contato = ? WHERE id = ?';
     const data = [funcionario.nome, funcionario.contato, funcionario.id];
 
     return this.db.executeSQL(sql, data);
   }
 
   delete(id: number) {
-    const sql = 'DELETE funcionario where id = ?';
+    const sql = 'DELETE FROM funcionario where id = ?';
     const data = [id];
 
     return this.db.executeSQL(sql, data);

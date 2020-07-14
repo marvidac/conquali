@@ -34,7 +34,8 @@ export class FuncionarioFormPage implements OnInit {
   async onSubmit() {
     try {
       const result = await this.funcionarioService.save(this.funcionario);
-      this.funcionario.id = result.insertId;
+      if(result.insertId)
+        this.funcionario.id = result.insertId;
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',
