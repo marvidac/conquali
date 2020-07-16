@@ -18,6 +18,7 @@ export class ServicoService {
   }  
 
   private insert(servico: Servico) { 
+    console.log('insert servico.service.ts')
     const sql = 'INSERT INTO servico (nome) values (?)';
     const data = [servico.nome];
 

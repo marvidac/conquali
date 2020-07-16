@@ -1,9 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>item-form</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input autocapitalize="on" [(ngModel)]="item.nome" name="nome" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Serviços</ion-label>
+      <ion-select multiple="true" (ionChange)="onSelectChange($event)" [compareWith]="compareWith" [value]="servicosSelecionados" selectedText="" >
+        <ion-select-option *ngFor="let servico of servicos" value="servico">{{servico.nome}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="ion-margin-vertical">
+      <ion-button type="submit" color="secondary" expand="block">Salvar</ion-button>
+    </div>
+  </form>
 </ion-content>

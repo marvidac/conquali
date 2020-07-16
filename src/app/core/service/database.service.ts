@@ -32,8 +32,8 @@ export class DatabaseService {
     const sqls = [];
     sqls.push('CREATE TABLE IF NOT EXISTS funcionario (id integer primary key AUTOINCREMENT, nome VARCHAR(100), contato VARCHAR (100));');
     sqls.push('CREATE TABLE IF NOT EXISTS item (id integer primary key AUTOINCREMENT, nome VARCHAR(100));');
-    sqls.push('CREATE TABLE IF NOT EXISTS servicos (id integer primary key AUTOINCREMENT, nome VARCHAR(100));');
-    sqls.push('CREATE TABLE IF NOT EXISTS item_servicos (id integer primary key AUTOINCREMENT, item integer, servico integer, FOREIGN KEY(item) REFERENCES item(id), FOREIGN KEY(servico) REFERENCES servico(id));');
+    sqls.push('CREATE TABLE IF NOT EXISTS servico (id integer primary key AUTOINCREMENT, nome VARCHAR(100));');
+    sqls.push('CREATE TABLE IF NOT EXISTS item_servico (id integer primary key AUTOINCREMENT, item integer, servico integer, FOREIGN KEY(item) REFERENCES item(id), FOREIGN KEY(servico) REFERENCES servico(id));');
     return sqls.join('\n');
   }
 

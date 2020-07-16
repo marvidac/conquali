@@ -43,7 +43,7 @@ export class FuncionarioListPage implements OnInit {
   async delete(funcionario: Funcionario) {
     const alert = await this.alertCtrl.create({
       header: 'Deletar?',
-      message: `Deseja excluir o contato: ${funcionario.nome}?`,
+      message: `Deseja excluir o funcionário: ${funcionario.nome}?`,
       buttons: [
         {
           text: 'Cancelar',
