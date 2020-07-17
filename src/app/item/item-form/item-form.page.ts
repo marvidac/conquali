@@ -17,10 +17,15 @@ export class ItemFormPage implements OnInit {
   item: Item;
 
   servicos: Servico[] = [];
-  servicosSelecionados: Servico[] = [];
+  servicosSelecionados: any[] = [];
 
-  compareWithFn(o1, o2) {
-    return o1.id === o2.id;
+  compareWithFn(e1: Servico, e2: Servico) {
+    console.table(e2);
+    return e1 && e2 ? e1.id === e2.id : e1 === e2;
+  };
+
+  multiChange(){ 
+    console.table(this.servicosSelecionados);
   };
 
   constructor(
@@ -85,7 +90,15 @@ export class ItemFormPage implements OnInit {
   }
 
   onSelectChange(selectedValue: any) {
-    this.servicosSelecionados = selectedValue.detail;
+    this.servicosSelecionados = [];
+    const lista = selectedValue.detail;
+    for(let i = 0; i < lista.length; i++) {
+      const tmp = lista[i];
+      const serv = new Servico();
+      serv.id = tmp.id;
+      serv.nome = tmp.nome;
+      this.servicosSelecionados.push(serv);
+    }
   }
 
 }
