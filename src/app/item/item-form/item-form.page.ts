@@ -16,17 +16,8 @@ export class ItemFormPage implements OnInit {
   title: string = 'Novo Item';
   item: Item;
 
-  servicos: Servico[] = [];
+  servicos: any[] = [];
   servicosSelecionados: any[] = [];
-
-  compareWithFn(e1: Servico, e2: Servico) {
-    console.table(e2);
-    return e1 && e2 ? e1.id === e2.id : e1 === e2;
-  };
-
-  multiChange(){ 
-    console.table(this.servicosSelecionados);
-  };
 
   constructor(
     private itemService: ItemService,
@@ -47,8 +38,6 @@ export class ItemFormPage implements OnInit {
       this.title = 'Editar Item';
       this.loadItem(parseInt(idParam));
     }
-
-    
   }
   
   async onSubmit() {
@@ -84,21 +73,44 @@ export class ItemFormPage implements OnInit {
     this.item = await this.itemService.getById(id);
   }
 
-  async loadAllServicos(idItem?: number) {
+  loadAllServicos(idItem?: number) {
     console.log('loadAllServicos item-form.page.ts');
-    this.servicos = await this.servicoService.getAll();
+    //this.servicos = await this.servicoService.getAll();
+    this.geraListaServicos();
   }
 
-  onSelectChange(selectedValue: any) {
-    this.servicosSelecionados = [];
-    const lista = selectedValue.detail;
-    for(let i = 0; i < lista.length; i++) {
-      const tmp = lista[i];
-      const serv = new Servico();
-      serv.id = tmp.id;
-      serv.nome = tmp.nome;
-      this.servicosSelecionados.push(serv);
-    }
+  async geraListaServicos() {
+
+    this.servicosSelecionados.push(
+      {
+        id: 1
+      }
+    );
+
+    let lista = await this.servicoService.getAll();
+    lista.forEach(element => {
+      const checked = this.servicosSelecionados.find( 
+        e => { 
+          return (e.id === element.id ? true : false);
+        }
+      );
+
+      this.servicos.push(
+        {
+          id: element.id,
+          nome: element.nome,
+          checked: (checked != undefined ? true : false)
+        }
+      );
+    });
+  }
+
+  onSelectChange(servico: Servico) {
+    this.servicos.find(e => {
+      if(e.id === servico.id) {
+        e.checked = !e.checked;
+      }
+    })
   }
 
 }
