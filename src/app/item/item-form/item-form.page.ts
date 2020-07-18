@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { ItemService } from '../shared/item.service';
 import { ItemServicoService } from '../shared/item-servico.service';
 import { ServicoService } from '../../servico/shared/servico.service';
+import { ItemServico } from '../shared/item-servico';
 
 @Component({
   selector: 'app-item-form',
@@ -22,6 +23,7 @@ export class ItemFormPage implements OnInit {
   constructor(
     private itemService: ItemService,
     private servicoService: ServicoService,
+    private itemServicoService: ItemServicoService,
     private route: ActivatedRoute,
     private toastCtrl: ToastController
   ) { 
@@ -42,9 +44,26 @@ export class ItemFormPage implements OnInit {
   
   async onSubmit() {
     try {
+      //Salva item
       const result = await this.itemService.save(this.item);
-      if(result.insertId)
+
+      if(result.insertId) {
         this.item.id = result.insertId;
+       //Salvar Serviços Selecionados ao item
+       this.servicos.filter(e => {
+         if(e.checked) {
+            let is = new ItemServico();
+            is.item = this.item.id;
+            is.servico = e.id;
+
+            this.itemServicoService.save(is).catch(error => {
+                console.error(error);
+            });
+         }
+       })
+      }
+
+
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',
@@ -80,14 +99,10 @@ export class ItemFormPage implements OnInit {
   }
 
   async geraListaServicos() {
-
-    this.servicosSelecionados.push(
-      {
-        id: 1
-      }
-    );
-
+    this.servicos = [];
+    
     let lista = await this.servicoService.getAll();
+
     lista.forEach(element => {
       const checked = this.servicosSelecionados.find( 
         e => { 
@@ -111,6 +126,12 @@ export class ItemFormPage implements OnInit {
         e.checked = !e.checked;
       }
     })
+  }
+
+  limparFormulario() {
+    this.item = new Item();
+    this.servicosSelecionados = [];
+    this.geraListaServicos();
   }
 
 }

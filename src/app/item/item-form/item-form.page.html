@@ -13,10 +13,9 @@
       <ion-label position="stacked">Nome</ion-label>
       <ion-input autocapitalize="on" [(ngModel)]="item.nome" name="nome" ></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item class="ion-padding"> 
       <ion-label>Serviços</ion-label>
-      
-      
+
       <ion-infinite-scroll threshold="100px">
         <ion-infinite-scroll-content
           loadingSpinner="bubbles"
@@ -39,8 +38,23 @@
       
 
     </ion-item>
-    <div class="ion-margin-vertical">
-      <ion-button type="submit" color="secondary" expand="block">Salvar</ion-button>
-    </div>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="salvar">
+              <div class="ion-margin-vertical">
+                <ion-button type="submit" color="primary" expand="block">
+                  <ion-icon slot="start" name="save" ></ion-icon>
+                  Salvar</ion-button>
+              </div>
+        </ion-tab-button>
+        <ion-tab-button tab="salvar">
+              <div class="ion-margin-vertical">
+                <ion-button type="button" color="secondary" expand="block" (click)="limparFormulario()">
+                  <ion-icon slot="start" name="close-outline" ></ion-icon>
+                  Limpar</ion-button>
+              </div>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
   </form>
 </ion-content>

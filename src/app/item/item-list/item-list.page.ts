@@ -21,6 +21,7 @@ export class ItemListPage implements OnInit {
   }
 
   async loadItems() {
+    console.log('loadItems item-list.page.ts');
     this.items = await this.itemService.getAll();
   }
 
