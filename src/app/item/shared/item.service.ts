@@ -39,7 +39,7 @@ export class ItemService {
   }
 
   async getById(id: number) {
-    const sql = 'SELECT * FROM item where id = ?';
+    const sql = 'SELECT * FROM item where id = ? LIMIT 1';
     const data = [id];
     const result = await this.db.executeSQL(sql, data);
     const rows = result.rows;

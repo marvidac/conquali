@@ -14,6 +14,7 @@ import { ItemServico } from '../shared/item-servico';
   styleUrls: ['./item-form.page.scss'],
 })
 export class ItemFormPage implements OnInit {
+  idParam:number;
   title: string = 'Novo Item';
   item: Item;
 
@@ -32,14 +33,18 @@ export class ItemFormPage implements OnInit {
 
   ngOnInit() {
     this.item = new Item();
+    //Pegando id do Item passado como parâmetro a partir da tela de listagem
+    this.idParam = parseInt(this.route.snapshot.paramMap.get('id'));
 
-    this.loadAllServicos();
-
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if(idParam) {
+    
+    if(this.idParam) {
       this.title = 'Editar Item';
-      this.loadItem(parseInt(idParam));
+      this.loadItem(this.idParam);
+      this.loadServicosPorItem(this.idParam);
     }
+
+    //Deve ser o último a ser chamado, pois é necessário construir lista de serviços do Item (apenas na edição)
+    this.loadAllServicos();
   }
   
   async onSubmit() {
@@ -89,12 +94,14 @@ export class ItemFormPage implements OnInit {
   }
 
   async loadItem(id: number) {
-    this.item = await this.itemService.getById(id);
+    await this.itemService.getById(id).then(e => {
+      this.item = e;
+      console.log('ITEM LOADED');
+      console.table(this.item);
+    })
   }
 
   loadAllServicos(idItem?: number) {
-    console.log('loadAllServicos item-form.page.ts');
-    //this.servicos = await this.servicoService.getAll();
     this.geraListaServicos();
   }
 
@@ -132,6 +139,18 @@ export class ItemFormPage implements OnInit {
     this.item = new Item();
     this.servicosSelecionados = [];
     this.geraListaServicos();
+  }
+
+  async loadServicosPorItem(idItem: number) {
+    await this.itemServicoService.getAllByItem(idItem).then(lista => {
+      lista.forEach(element => {
+        this.servicosSelecionados.push(
+          {
+            id: element.servico
+          }
+        )
+      });
+    })
   }
 
 }
