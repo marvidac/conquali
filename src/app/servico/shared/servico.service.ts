@@ -46,9 +46,8 @@ export class ServicoService {
     const rows = result.rows;
     const servico = new Servico();
     if(rows && rows.length > 0) {
-      const item = rows.item(0);
-      servico.id = item.id;
-      servico.nome = item.nome;
+      servico.id = rows.item(0).id;
+      servico.nome = rows.item(0).nome;
     }
 
     return servico;

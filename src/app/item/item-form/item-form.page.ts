@@ -32,6 +32,7 @@ export class ItemFormPage implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOnInit item-form.page.ts');
     this.item = new Item();
     //Pegando id do Item passado como parâmetro a partir da tela de listagem
     this.idParam = parseInt(this.route.snapshot.paramMap.get('id'));

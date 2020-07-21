@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ComponentFactoryResolver } from '@angular/core';
 import { DatabaseService } from 'src/app/core/service/database.service';
 import { Item } from './item';
 
@@ -39,15 +39,19 @@ export class ItemService {
   }
 
   async getById(id: number) {
+    console.log('getById item.service.ts');
     const sql = 'SELECT * FROM item where id = ? LIMIT 1';
     const data = [id];
-    const result = await this.db.executeSQL(sql, data);
-    const rows = result.rows;
     const item = new Item();
-    if(rows && rows.length > 0) {
-      const item = rows.item(0);
-      item.id = item.id;
-      item.nome = item.nome;
+    try {
+      const result = await this.db.executeSQL(sql, data);
+      const rows = result.rows;
+      if(rows && rows.length > 0) {
+        item.id = rows.item(0).id;
+        item.nome = rows.item(0).nome;
+      }
+    } catch(ex) {
+      console.error(ex);
     }
 
     return item;
