@@ -11,10 +11,10 @@
   <form (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
-      <ion-input autocapitalize="on" [(ngModel)]="item.nome" name="nome" ></ion-input>
+      <ion-input autocapitalize="on" [(ngModel)]="equipe.nome" name="nome" ></ion-input>
     </ion-item>
     <ion-item class="ion-padding"> 
-      <ion-label>Serviços</ion-label>
+      <ion-label>Funcionários</ion-label>
 
       <ion-infinite-scroll threshold="100px">
         <ion-infinite-scroll-content
@@ -22,14 +22,14 @@
           loadingText="Buscando mais registros..."
         >
         <div
-        *ngFor="let servico of servicos" 
+        *ngFor="let funcionario of funcionarios" 
         >
         <ion-item 
         button
-        (click)="onSelectChange(servico)"
-        [color]="servico.checked?'secondary':''"
+        (click)="onSelectChange(funcionario)"
+        [color]="funcionario.checked?'secondary':''"
                   >
-                    {{servico.nome}}
+                    {{funcionario.nome}}
                   </ion-item>
                 </div>
         </ion-infinite-scroll-content>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'item', pathMatch: 'full' },
+  { path: '', redirectTo: 'funcionario', pathMatch: 'full' },
 
   { path: 'funcionario', loadChildren: './funcionario/funcionario-list/funcionario-list.module#FuncionarioListPageModule', pathMatch: 'full' },
   { path: 'funcionario/new', loadChildren: './funcionario/funcionario-form/funcionario-form.module#FuncionarioFormPageModule', pathMatch: 'full' },
@@ -15,6 +15,19 @@ const routes: Routes = [
   { path: 'item', loadChildren: './item/item-list/item-list.module#ItemListPageModule', pathMatch: 'full' },
   { path: 'item/new', loadChildren: './item/item-form/item-form.module#ItemFormPageModule', pathMatch: 'full' },
   { path: 'item/edit/:id', loadChildren: './item/item-form/item-form.module#ItemFormPageModule', pathMatch: 'full' },
+
+  { path: 'equipe', loadChildren: './equipe/equipe-list/equipe-list.module#EquipeListPageModule', pathMatch: 'full' },
+  { path: 'equipe/new', loadChildren: './equipe/equipe-form/equipe-form.module#EquipeFormPageModule', pathMatch: 'full' },
+  { path: 'equipe/edit/:id', loadChildren: './equipe/equipe-form/equipe-form.module#EquipeFormPageModule', pathMatch: 'full' },
+
+  {
+    path: 'equipe-form',
+    loadChildren: () => import('./equipe/equipe-form/equipe-form.module').then( m => m.EquipeFormPageModule)
+  },
+  {
+    path: 'equipe-list',
+    loadChildren: () => import('./equipe/equipe-list/equipe-list.module').then( m => m.EquipeListPageModule)
+  },
   
 
 ];
