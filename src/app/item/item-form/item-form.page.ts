@@ -53,8 +53,15 @@ export class ItemFormPage implements OnInit {
       //Salva item
       const result = await this.itemService.save(this.item);
 
-      if(result.insertId) {
-        this.item.id = result.insertId;
+
+      try {
+        if(result.insertId != undefined)
+          this.item.id = result.insertId;
+        } catch(error) {}
+        
+      //Deleta todos os equipe_funcionario por Id de Equipe antes de salvá-los novamente
+      this.itemServicoService.deleteAllByItemId(this.item.id);
+
        //Salvar Serviços Selecionados ao item
        this.servicos.filter(e => {
          if(e.checked) {
@@ -67,9 +74,6 @@ export class ItemFormPage implements OnInit {
             });
          }
        })
-      }
-
-
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',

@@ -52,35 +52,37 @@ export class EquipeFormPage implements OnInit {
     try {
       //Salva equipe
       const result = await this.equipeService.save(this.equipe);
-
-      if(result.insertId) {
+    
+      try {
+      if(result.insertId != undefined)
         this.equipe.id = result.insertId;
-       //Salvar Serviços Selecionados ao equipe
-       this.funcionarios.filter(e => {
-         if(e.checked) {
-            let is = new EquipeFuncionario();
-            is.equipe = this.equipe.id;
-            is.funcionario = e.id;
+      } catch(error) {}
+      
+    //Deleta todos os equipe_funcionario por Id de Equipe antes de salvá-los novamente
+    this.equipeFuncionarioService.deleteAllByEquipeId(this.equipe.id);
+    //Salvar Serviços Selecionados ao equipe
+    this.funcionarios.filter(e => {
+      if(e.checked) {
+          let is = new EquipeFuncionario();
+          is.equipe = this.equipe.id;
+          is.funcionario = e.id;
 
-            this.equipeFuncionarioService.save(is).catch(error => {
-                console.error(error);
-            });
-         }
-       })
+          this.equipeFuncionarioService.save(is).catch(error => {
+              console.error(error);
+          });
       }
+    })
 
+    const toast = await this.toastCtrl.create({
+      header: 'Sucesso',
+      message: 'Equipe salvo com sucesso.',
+      color: 'success',
+      position: 'bottom',
+      duration: 3000
+    });
 
+    toast.present();
 
-      const toast = await this.toastCtrl.create({
-        header: 'Sucesso',
-        message: 'Equipe salvo com sucesso.',
-        color: 'success',
-        position: 'bottom',
-        duration: 3000
-      });
-      
-      toast.present();
-      
     } catch(error) {
       const toast = await this.toastCtrl.create({
         header: 'Erro',
@@ -92,6 +94,7 @@ export class EquipeFormPage implements OnInit {
 
       toast.present();
     }
+
   }
 
   async loadEquipe(id: number) {

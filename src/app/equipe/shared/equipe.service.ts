@@ -18,7 +18,6 @@ export class EquipeService {
   }  
 
   private insert(equipe: Equipe) { 
-    console.log('insert equipe.service.ts')
     const sql = 'INSERT INTO equipe (nome, created) values (?,?)';
     const data = [equipe.nome, new Date().toString()];
 

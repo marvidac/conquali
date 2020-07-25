@@ -20,15 +20,9 @@ const routes: Routes = [
   { path: 'equipe/new', loadChildren: './equipe/equipe-form/equipe-form.module#EquipeFormPageModule', pathMatch: 'full' },
   { path: 'equipe/edit/:id', loadChildren: './equipe/equipe-form/equipe-form.module#EquipeFormPageModule', pathMatch: 'full' },
 
-  {
-    path: 'equipe-form',
-    loadChildren: () => import('./equipe/equipe-form/equipe-form.module').then( m => m.EquipeFormPageModule)
-  },
-  {
-    path: 'equipe-list',
-    loadChildren: () => import('./equipe/equipe-list/equipe-list.module').then( m => m.EquipeListPageModule)
-  },
-  
+  { path: 'local', loadChildren: './local/local-list/local-list.module#LocalListPageModule', pathMatch: 'full' },
+  { path: 'local/new', loadChildren: './local/local-form/local-form.module#LocalFormPageModule', pathMatch: 'full' },
+  { path: 'local/edit/:id', loadChildren: './local/local-form/local-form.module#LocalFormPageModule', pathMatch: 'full' },
 
 ];
 
