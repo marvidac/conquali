@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Data</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="inspecao.data" placeholder="Selecione uma data"></ion-datetime>
+    </ion-item>
+    <ion-item class="ion-padding"> 
+      <ion-item>
+        <ion-label>Local</ion-label>
+        <ion-select [(ngModel)]="localSelecionado" okText="OK" cancelText="Cancela">
+          <ion-select-option *ngFor="let local of locais" [value]="local">{{local.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="salvar">
+              <div class="ion-margin-vertical">
+                <ion-button type="submit" color="primary" expand="block">
+                  <ion-icon slot="start" name="save" ></ion-icon>
+                  Salvar</ion-button>
+              </div>
+        </ion-tab-button>
+        <ion-tab-button tab="salvar">
+              <div class="ion-margin-vertical">
+                <ion-button type="button" color="secondary" expand="block" (click)="limparFormulario()">
+                  <ion-icon slot="start" name="close-outline" ></ion-icon>
+                  Limpar</ion-button>
+              </div>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </form>
+</ion-content>

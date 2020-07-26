@@ -24,6 +24,11 @@ const routes: Routes = [
   { path: 'local/new', loadChildren: './local/local-form/local-form.module#LocalFormPageModule', pathMatch: 'full' },
   { path: 'local/edit/:id', loadChildren: './local/local-form/local-form.module#LocalFormPageModule', pathMatch: 'full' },
 
+  { path: 'inspecao', loadChildren: './inspecao/inspecao-list/inspecao-list.module#InspecaoListPageModule', pathMatch: 'full' },
+  { path: 'inspecao/new', loadChildren: './inspecao/inspecao-form/inspecao-form.module#InspecaoFormPageModule', pathMatch: 'full' },
+  { path: 'inspecao/edit/:id', loadChildren: './inspecao/inspecao-form/inspecao-form.module#InspecaoFormPageModule', pathMatch: 'full' },
+  
+
 ];
 
 @NgModule({
