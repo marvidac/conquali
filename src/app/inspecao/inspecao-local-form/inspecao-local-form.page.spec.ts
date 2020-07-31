@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { InspecaoFormPage } from './inspecao-form.page';
+import { InspecaoLocalFormPage } from './inspecao-local-form.page';
 
-describe('InspecaoFormPage', () => {
-  let component: InspecaoFormPage;
-  let fixture: ComponentFixture<InspecaoFormPage>;
+describe('InspecaoLocalFormPage', () => {
+  let component: InspecaoLocalFormPage;
+  let fixture: ComponentFixture<InspecaoLocalFormPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InspecaoFormPage ],
+      declarations: [ InspecaoLocalFormPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InspecaoFormPage);
+    fixture = TestBed.createComponent(InspecaoLocalFormPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

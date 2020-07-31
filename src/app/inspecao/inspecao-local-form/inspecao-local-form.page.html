@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }} - Selecione um Local</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label>Dia/Mês/Ano</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" (ionChange)="change($event)" placeholder="Selecione a data"></ion-datetime>
+  </ion-item>
+  <ion-button expand="block" color="secondary" size="large" *ngFor="let local of locais" [routerLink]="['/inspecao/equipe', local.id]">
+    {{local.nome}}
+  </ion-button>
+</ion-content>

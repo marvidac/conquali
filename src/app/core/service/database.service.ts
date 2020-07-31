@@ -30,7 +30,7 @@ export class DatabaseService {
 
   getCreateTable() {
     const sqls = [];
-    sqls.push('CREATE TABLE IF NOT EXISTS funcionario (id integer primary key AUTOINCREMENT, nome VARCHAR(100), contato VARCHAR (100));');
+    /*sqls.push('CREATE TABLE IF NOT EXISTS funcionario (id integer primary key AUTOINCREMENT, nome VARCHAR(100), contato VARCHAR (100));');
     sqls.push('CREATE TABLE IF NOT EXISTS item (id integer primary key AUTOINCREMENT, nome VARCHAR(100));');
     sqls.push('CREATE TABLE IF NOT EXISTS servico (id integer primary key AUTOINCREMENT, nome VARCHAR(100));');
     sqls.push('CREATE TABLE IF NOT EXISTS item_servico (id integer primary key AUTOINCREMENT, item integer, servico integer, FOREIGN KEY(item) REFERENCES item(id), FOREIGN KEY(servico) REFERENCES servico(id));');
@@ -40,7 +40,7 @@ export class DatabaseService {
     sqls.push('CREATE TABLE local(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, status BOOL, created TEXT NOT NULL);');
     sqls.push('DROP TABLE inspecao;');
     sqls.push('CREATE TABLE inspecao(id INTEGER PRIMARY KEY AUTOINCREMENT, local INTEGER NOT NULL, equipe INTEGER NOT NULL, data TEXT NOT NULL, created TEXT NOT NULL);');
-    sqls.push('CREATE TABLE inspecao_item_servico(id INTEGER PRIMARY KEY AUTOINCREMENT, inspecao INTEGER NOT NULL, item_servico INTEGER NOT NULL, conforme BOOL NOT NULL, obs TEXT, created TEXT NOT NULL, FOREIGN KEY(inspecao) REFERENCES inspecao(id), FOREIGN KEY(item_servico) REFERENCES item_servico(id));');
+    sqls.push('CREATE TABLE inspecao_item_servico(id INTEGER PRIMARY KEY AUTOINCREMENT, inspecao INTEGER NOT NULL, item_servico INTEGER NOT NULL, conforme BOOL NOT NULL, obs TEXT, created TEXT NOT NULL, FOREIGN KEY(inspecao) REFERENCES inspecao(id), FOREIGN KEY(item_servico) REFERENCES item_servico(id));');*/
     return sqls.join('\n');
   }
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'funcionario', pathMatch: 'full' },
+  { path: '', redirectTo: 'inspecao/local', pathMatch: 'full' },
 
   { path: 'funcionario', loadChildren: './funcionario/funcionario-list/funcionario-list.module#FuncionarioListPageModule', pathMatch: 'full' },
   { path: 'funcionario/new', loadChildren: './funcionario/funcionario-form/funcionario-form.module#FuncionarioFormPageModule', pathMatch: 'full' },
@@ -19,14 +19,15 @@ const routes: Routes = [
   { path: 'equipe', loadChildren: './equipe/equipe-list/equipe-list.module#EquipeListPageModule', pathMatch: 'full' },
   { path: 'equipe/new', loadChildren: './equipe/equipe-form/equipe-form.module#EquipeFormPageModule', pathMatch: 'full' },
   { path: 'equipe/edit/:id', loadChildren: './equipe/equipe-form/equipe-form.module#EquipeFormPageModule', pathMatch: 'full' },
-
+  
   { path: 'local', loadChildren: './local/local-list/local-list.module#LocalListPageModule', pathMatch: 'full' },
   { path: 'local/new', loadChildren: './local/local-form/local-form.module#LocalFormPageModule', pathMatch: 'full' },
   { path: 'local/edit/:id', loadChildren: './local/local-form/local-form.module#LocalFormPageModule', pathMatch: 'full' },
-
+  
   { path: 'inspecao', loadChildren: './inspecao/inspecao-list/inspecao-list.module#InspecaoListPageModule', pathMatch: 'full' },
-  { path: 'inspecao/new', loadChildren: './inspecao/inspecao-form/inspecao-form.module#InspecaoFormPageModule', pathMatch: 'full' },
-  { path: 'inspecao/edit/:id', loadChildren: './inspecao/inspecao-form/inspecao-form.module#InspecaoFormPageModule', pathMatch: 'full' },
+  { path: 'inspecao/local', loadChildren: './inspecao/inspecao-local-form/inspecao-local-form.module#InspecaoLocalFormPageModule', pathMatch: 'full' }, 
+  { path: 'inspecao/equipe/:idLocal', loadChildren: './inspecao/inspecao-equipe-form/inspecao-equipe-form.module#InspecaoEquipeFormPageModule', pathMatch: 'full' },
+  { path: 'inspecao/item/:idLocal/:idEquipe', loadChildren: './inspecao/inspecao-item-form/inspecao-item-form.module#InspecaoItemFormPageModule', pathMatch: 'full' },
   
 
 ];
