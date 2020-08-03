@@ -1,9 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>inspecao-item-form</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }} - Selecione um Item</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-button expand="block" color="secondary" size="large" *ngFor="let item of item" [routerLink]="['/inspecao/servico', idLocal, idEquipe, item.id]">
+    {{item.nome}}
+  </ion-button>
 </ion-content>
