@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }} - Selecione um Serviço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-button expand="block" color="secondary" size="large" *ngFor="let servico of servicos" [routerLink]="['/inspecao/naoconforme', idLocal, idEquipe, idItem]">
+    {{servico.nome}}
+  </ion-button>
+</ion-content>

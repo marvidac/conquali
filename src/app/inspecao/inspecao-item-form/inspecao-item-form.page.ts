@@ -4,9 +4,9 @@ import { Item } from '../../item/shared/item';
 import { ItemService } from '../../item/shared/item.service';
 
 @Component({
-  selector: 'app-equipe-form',
-  templateUrl: './inspecao-equipe-form.page.html',
-  styleUrls: ['./inspecao-equipe-form.page.scss'],
+  selector: 'app-item-form',
+  templateUrl: './inspecao-item-form.page.html',
+  styleUrls: ['./inspecao-item-form.page.scss'],
 })
 export class InspecaoItemFormPage implements OnInit {
 

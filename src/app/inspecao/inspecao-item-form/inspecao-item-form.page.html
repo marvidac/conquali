@@ -8,7 +8,11 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button expand="block" color="secondary" size="large" *ngFor="let item of item" [routerLink]="['/inspecao/servico', idLocal, idEquipe, item.id]">
+  <ion-item>
+    <ion-label>Local: {{idLocal}}</ion-label>
+    <ion-label>Equipe: {{idEquipe}}</ion-label>
+  </ion-item>
+  <ion-button expand="block" color="secondary" size="large" *ngFor="let item of itens" [routerLink]="['/inspecao/servico', idLocal, idEquipe, item.id]">
     {{item.nome}}
   </ion-button>
 </ion-content>
