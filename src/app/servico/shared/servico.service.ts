@@ -60,7 +60,7 @@ export class ServicoService {
 
     return servicos;
   }
-
+  
   async filterByNome(text: string) {
     const sql = 'SELECT * FROM servico WHERE nome like ?';
     const data = [`%${text}%`];

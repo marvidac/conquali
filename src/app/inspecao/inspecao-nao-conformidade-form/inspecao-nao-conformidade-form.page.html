@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ title }} - Selecione um Serviço</ion-title>
+    <ion-title>{{ title }} - Não conformidades</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let servico of servicos">
+    <ion-item *ngFor="let servico of servicosNaoConformes">
       <ion-label>{{servico.nome}}</ion-label>
       <ion-checkbox slot="end" [(ngModel)]="servico.checked"></ion-checkbox>
     </ion-item>

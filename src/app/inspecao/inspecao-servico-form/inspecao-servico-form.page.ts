@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Servico } from '../../servico/shared/servico';
-import { ServicoService } from '../../servico/shared/servico.service';
+import { ItemServicoService } from '../../item/shared/item-servico.service';
+import { Router, NavigationExtras } from "@angular/router";
 
 @Component({
   selector: 'app-servico-form',
@@ -13,15 +13,15 @@ export class InspecaoServicoFormPage implements OnInit {
   idLocal:number;
   idEquipe:number;
   idItem:number;
-  teste:[];
 
   title: string = 'Nova Inspeção';
  
-  servicos: Servico[] = [];
-  
+  servicos: any[] = [];
+ 
   constructor(
-    private servicoService: ServicoService,
-    private route: ActivatedRoute
+    private itemServicoService: ItemServicoService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -30,21 +30,54 @@ export class InspecaoServicoFormPage implements OnInit {
     this.idLocal = parseInt(this.route.snapshot.paramMap.get('idLocal'));
     this.idEquipe = parseInt(this.route.snapshot.paramMap.get('idEquipe'));
     this.idItem = parseInt(this.route.snapshot.paramMap.get('idItem'));
-    console.log(this.route.snapshot.paramMap.get('teste'));
     
-    this.loadAllServicos();
+    if(this.idItem)
+      this.loadAllServicosPorIdItem();
   }
 
-  loadAllServicos(idServico?: number) {
-    this.geraListaDeServicos();
+  loadAllServicosPorIdItem(idServico?: number) {
+    this.getAllServicosByIdItem();
   }
 
   limparFormulario() {
-    this.geraListaDeServicos();
+    this.getAllServicosByIdItem();
   }
   
-  async geraListaDeServicos() {
-    this.servicos = await this.servicoService.getAll();
+  async getAllServicosByIdItem() {
+    this.servicos = [];
+    await this.itemServicoService.getAllServicosByIdItem(this.idItem).then((retorno) => {
+      retorno.map( serv => {
+        this.servicos.push(
+          {
+          id: serv.id,
+          nome: serv.nome,
+          checked: false
+        }
+        );
+      });
+    });
+
   }
+
+  irParaNaoConformidades() {
+    let params = {
+      idLocal: this.idLocal, 
+      idEquipe: this.idEquipe, 
+      idItem: this.idItem,
+      servicos: this.servicos
+    }
+    this.router.navigate(['inspecao/naoConformidade'], {queryParams: params});
+  }
+
+  /*
+  constructor(private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    // se possivel, capture o parametro 
+    let questoesParam = this.route
+      .queryParamMap
+      .map(params => params.get('atributo') || 'None');
+  }*/
   
 }

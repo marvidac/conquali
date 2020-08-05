@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { DatabaseService } from 'src/app/core/service/database.service';
 import { ItemServico } from './item-servico';
+import { Servico } from '../../servico/shared/servico';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemServicoService {
 
-  constructor(private db: DatabaseService) { }
+  constructor(private db: DatabaseService) { 
+    console.log('item-servico.service.ts');
+  }
 
   save(itemServico: ItemServico) {
     if(itemServico.id > 0) {
@@ -71,6 +74,14 @@ export class ItemServicoService {
     return itemServicos;
   }
 
+  async getAllServicosByIdItem(idItem: number) {
+    const sql = 'SELECT ser.* FROM item_servico its INNER JOIN servico ser on ser.id = its.servico WHERE its.item = ?';
+    const data = [idItem];
+    const result = await this.db.executeSQL(sql, data);
+    const servicos = this.fillServicos(result.rows);
+    return servicos;
+  }
+
   private fillItemServicos(rows: any) {
     const itemServicos: ItemServico[] = [];
 
@@ -85,5 +96,20 @@ export class ItemServicoService {
     }
 
     return itemServicos;
+  }
+
+  private fillServicos(rows: any) {
+    const servicos: Servico[] = [];
+
+    for(let i = 0; i < rows.length; i++) {
+      const item = rows.item(i);
+      const servico = new Servico();
+      servico.id = item.id;
+      servico.nome = item.nome;
+
+      servicos.push(servico);
+    }
+
+    return servicos;
   }
 }

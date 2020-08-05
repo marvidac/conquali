@@ -28,8 +28,9 @@ const routes: Routes = [
   { path: 'inspecao/local', loadChildren: './inspecao/inspecao-local-form/inspecao-local-form.module#InspecaoLocalFormPageModule', pathMatch: 'full' }, 
   { path: 'inspecao/equipe/:idLocal', loadChildren: './inspecao/inspecao-equipe-form/inspecao-equipe-form.module#InspecaoEquipeFormPageModule', pathMatch: 'full' },
   { path: 'inspecao/item/:idLocal/:idEquipe', loadChildren: './inspecao/inspecao-item-form/inspecao-item-form.module#InspecaoItemFormPageModule', pathMatch: 'full' },
-  { path: 'inspecao/servico/:idLocal/:idEquipe/:idItem/:teste', loadChildren: './inspecao/inspecao-servico-form/inspecao-servico-form.module#InspecaoServicoFormPageModule', pathMatch: 'full' },  
-
+  { path: 'inspecao/servico/:idLocal/:idEquipe/:idItem', loadChildren: './inspecao/inspecao-servico-form/inspecao-servico-form.module#InspecaoServicoFormPageModule', pathMatch: 'full' },  
+  { path: 'inspecao/naoConformidade', loadChildren: './inspecao/inspecao-nao-conformidade-form/inspecao-nao-conformidade-form.module#InspecaoNaoConformidadeFormPageModule', pathMatch: 'full' },
+  
 ];
 
 @NgModule({
