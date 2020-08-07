@@ -49,7 +49,10 @@ export class InspecaoItemFormPage implements OnInit {
   }
 
   irParaServicos(item: Item) {
-    this.router.navigate(['/inspecao/item', this.idLocal, this.idEquipe, item.id, this.data]);
+    let params = {
+      data: this.data
+    }
+    this.router.navigate(['/inspecao/servico', this.idLocal, this.idEquipe, item.id], {queryParams: params});
   }
   
 }

@@ -58,39 +58,69 @@ export class ItemServicoService {
   }
 
   async getAllByItem(itemId: number) {
-    const sql = 'SELECT * FROM item_servico where item = ?';
+    const sql = `SELECT 
+                    its.id, 
+                    it.id as item, 
+                    it.nome as itemNome, 
+                    ser.id as servico, 
+                    ser.nome as servicoNome 
+                FROM item_servico its 
+                INNER JOIN servico ser on ser.id = its.servico 
+                INNER JOIN item it on it.id = its.item 
+                WHERE its.item = ?`;
     const data = [itemId];
     const result = await this.db.executeSQL(sql, data);
-    const itemServicos = this.fillItemServicos(result.rows);
+    const itemServicos = this.fillItensServicos(result.rows);
 
     return itemServicos;
   }
 
   async filterByItemNome(text: string) {
-    const sql = 'SELECT * FROM item_servico its INNER JOIN item it on it.id = its.item WHERE it.nome like ?';
+    const sql = `SELECT 
+                  its.id, 
+                  it.id as item, 
+                  it.nome as itemNome, 
+                  ser.id as servico, 
+                  ser.nome as servicoNome 
+              FROM item_servico its 
+              INNER JOIN servico ser on ser.id = its.servico 
+              INNER JOIN item it on it.id = its.item 
+              WHERE it.nome like ?`;
     const data = [`%${text}%`];
     const result = await this.db.executeSQL(sql, data);
-    const itemServicos = this.fillItemServicos(result.rows);
+    const itemServicos = this.fillItensServicos(result.rows);
     return itemServicos;
   }
 
   async getAllServicosByIdItem(idItem: number) {
-    const sql = 'SELECT ser.* FROM item_servico its INNER JOIN servico ser on ser.id = its.servico WHERE its.item = ?';
+    const sql = `SELECT 
+                    its.id, 
+                    it.id as item, 
+                    it.nome as itemNome, 
+                    ser.id as servico, 
+                    ser.nome as servicoNome 
+                FROM item_servico its 
+                INNER JOIN servico ser on ser.id = its.servico 
+                INNER JOIN item it on it.id = its.item 
+                WHERE its.item = ?`;
     const data = [idItem];
     const result = await this.db.executeSQL(sql, data);
-    const servicos = this.fillServicos(result.rows);
-    return servicos;
+    const itensServicos = this.fillItensServicos(result.rows);
+    return itensServicos;
   }
 
-  private fillItemServicos(rows: any) {
+  private fillItensServicos(rows: any) {
     const itemServicos: ItemServico[] = [];
 
     for(let i = 0; i < rows.length; i++) {
       const item = rows.item(i);
       const itemServico = new ItemServico();
+
       itemServico.id = item.id;
       itemServico.item = item.item;
+      itemServico.itemNome = item.itemNome;
       itemServico.servico = item.servico;
+      itemServico.servicoNome = item.servicoNome;
 
       itemServicos.push(itemServico);
     }

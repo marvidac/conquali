@@ -9,9 +9,9 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let servico of servicos">
-      <ion-label>{{servico.nome}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="servico.checked"></ion-checkbox>
+    <ion-item *ngFor="let itemServico of itensServicos">
+      <ion-label>{{itemServico.servicoNome}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="itemServico.checked"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

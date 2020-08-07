@@ -17,7 +17,7 @@ export class InspecaoServicoFormPage implements OnInit {
 
   title: string = 'Nova Inspeção';
  
-  servicos: any[] = [];
+  itensServicos: any[] = [];
  
   constructor(
     private itemServicoService: ItemServicoService,
@@ -28,13 +28,24 @@ export class InspecaoServicoFormPage implements OnInit {
   ngOnInit() {
     console.log('ngOnInit inspecao-servico-form.page.ts');
     
-    this.data = this.route.snapshot.paramMap.get('data');
     this.idLocal = parseInt(this.route.snapshot.paramMap.get('idLocal'));
     this.idEquipe = parseInt(this.route.snapshot.paramMap.get('idEquipe'));
     this.idItem = parseInt(this.route.snapshot.paramMap.get('idItem'));
     
+    this.carregaApartirDeQueryParams();
+
     if(this.idItem)
       this.loadAllServicosPorIdItem();
+  }
+
+  carregaApartirDeQueryParams() {
+    this.route
+    .queryParamMap
+    .forEach(params => {
+      if(params.get('data')) {
+        this.data = params.get('data');
+      }
+    });
   }
 
   loadAllServicosPorIdItem(idServico?: number) {
@@ -46,13 +57,16 @@ export class InspecaoServicoFormPage implements OnInit {
   }
   
   async getAllServicosByIdItem() {
-    this.servicos = [];
+    this.itensServicos = [];
     await this.itemServicoService.getAllServicosByIdItem(this.idItem).then((retorno) => {
-      retorno.map( serv => {
-        this.servicos.push(
+      retorno.map( itemServ => {
+        this.itensServicos.push(
           {
-          id: serv.id,
-          nome: serv.nome,
+          id: itemServ.id,
+          item: itemServ.item,
+          itemNome: itemServ.itemNome,
+          servico: itemServ.servico,
+          servicoNome: itemServ.servicoNome,
           checked: false
         }
         );
@@ -65,7 +79,7 @@ export class InspecaoServicoFormPage implements OnInit {
     let conformes: number[] = [];
     let naoConformes: number[] = [];
 
-    this.servicos.forEach(e => {
+    this.itensServicos.forEach(e => {
       if(e.checked) {
         conformes.push(e.id);
       } else  {
@@ -78,8 +92,8 @@ export class InspecaoServicoFormPage implements OnInit {
       idLocal: this.idLocal, 
       idEquipe: this.idEquipe, 
       idItem: this.idItem,
-      servicosConformes: conformes,
-      servicosNaoConformes: naoConformes,
+      itemServicosConformes: conformes,
+      itemServicosNaoConformes: naoConformes,
     }
     this.router.navigate(['inspecao/naoConformidade'], {queryParams: params});
   }

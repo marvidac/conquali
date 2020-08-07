@@ -60,6 +60,9 @@ export class InspecaoEquipeFormPage implements OnInit {
   }
 
   irParaItens(equipe: Equipe) {
-    this.router.navigate(['/inspecao/item', this.idLocal, equipe.id, this.data]);
+    let params = {
+      data: this.data
+    }
+    this.router.navigate(['/inspecao/item', this.idLocal, equipe.id], {queryParams: params});
   }
 }
