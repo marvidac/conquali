@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Equipe } from '../../equipe/shared/equipe';
 import { Local } from '../../local/shared/local';
 import { EquipeService } from '../../equipe/shared/equipe.service';
@@ -17,7 +17,7 @@ export class InspecaoEquipeFormPage implements OnInit {
 
   title: string = 'Nova Inspeção';
 
-  data: string;
+  data: string = '';
   
   equipes: Equipe[] = [];
   equipeSelecionado: Equipe;
@@ -25,12 +25,14 @@ export class InspecaoEquipeFormPage implements OnInit {
   constructor(
     private equipeService: EquipeService,
     private localService: LocalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     console.log('ngOnInit inspecao-equipe-form.page.ts');
     
+    this.data = this.route.snapshot.paramMap.get('data');
     this.idLocal = parseInt(this.route.snapshot.paramMap.get('idLocal'));
     if(this.idLocal) {
       this.loadLocal(this.idLocal);
@@ -55,5 +57,9 @@ export class InspecaoEquipeFormPage implements OnInit {
     await this.localService.getById(id).then(e => {
       this.local = e;
     })
+  }
+
+  irParaItens(equipe: Equipe) {
+    this.router.navigate(['/inspecao/item', this.idLocal, equipe.id, this.data]);
   }
 }

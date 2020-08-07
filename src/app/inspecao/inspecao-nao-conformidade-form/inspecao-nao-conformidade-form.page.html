@@ -7,24 +7,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
   <ion-list>
-    <ion-item *ngFor="let servico of servicosNaoConformes">
+    <ion-item *ngFor="let servico of servicosNaoConformes; index as i;">
       <ion-label>{{servico.nome}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="servico.checked"></ion-checkbox>
+      <ion-textarea clearOnEdit="true" rows="6" cols="20" [(ngModel)]="servicosNaoConformes[i].obs"></ion-textarea>
     </ion-item>
   </ion-list>
 </ion-content>
-<ion-content>
+<ion-list class="ion-padding">
       <ion-tabs>
         <ion-tab-bar slot="bottom">
           <ion-tab-button>
                 <div class="ion-margin-vertical">
-                  <ion-button type="button" color="primary" expand="block" (click)="irParaNaoConformidades()">
+                  <ion-button type="button" color="primary" expand="block" (click)="salvarInspecao()">
                     <ion-icon slot="start" name="alert-circle-outline" ></ion-icon>
                     Não conformidade</ion-button>
                 </div>
           </ion-tab-button>
         </ion-tab-bar>
       </ion-tabs>
-</ion-content>
+</ion-list>

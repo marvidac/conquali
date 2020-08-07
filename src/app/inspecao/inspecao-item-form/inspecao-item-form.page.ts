@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../item/shared/item';
 import { ItemService } from '../../item/shared/item.service';
 
@@ -10,23 +10,26 @@ import { ItemService } from '../../item/shared/item.service';
 })
 export class InspecaoItemFormPage implements OnInit {
 
+  data: string = '';
+
   idLocal:number;
   idEquipe:number;
 
   title: string = 'Nova Inspeção';
 
-  data: string;
   
   itens: Item[] = [];
   
   constructor(
     private itemService: ItemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     console.log('ngOnInit inspecao-item-form.page.ts');
     
+    this.data = this.route.snapshot.paramMap.get('data');
     this.idLocal = parseInt(this.route.snapshot.paramMap.get('idLocal'));
     this.idEquipe = parseInt(this.route.snapshot.paramMap.get('idEquipe'));
     
@@ -43,6 +46,10 @@ export class InspecaoItemFormPage implements OnInit {
   
   async geraListaDeItens() {
     this.itens = await this.itemService.getAll();
+  }
+
+  irParaServicos(item: Item) {
+    this.router.navigate(['/inspecao/item', this.idLocal, this.idEquipe, item.id, this.data]);
   }
   
 }

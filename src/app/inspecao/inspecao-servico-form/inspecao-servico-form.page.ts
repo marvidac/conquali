@@ -10,6 +10,7 @@ import { Router, NavigationExtras } from "@angular/router";
 })
 export class InspecaoServicoFormPage implements OnInit {
 
+  data: string = '';
   idLocal:number;
   idEquipe:number;
   idItem:number;
@@ -27,6 +28,7 @@ export class InspecaoServicoFormPage implements OnInit {
   ngOnInit() {
     console.log('ngOnInit inspecao-servico-form.page.ts');
     
+    this.data = this.route.snapshot.paramMap.get('data');
     this.idLocal = parseInt(this.route.snapshot.paramMap.get('idLocal'));
     this.idEquipe = parseInt(this.route.snapshot.paramMap.get('idEquipe'));
     this.idItem = parseInt(this.route.snapshot.paramMap.get('idItem'));
@@ -60,11 +62,24 @@ export class InspecaoServicoFormPage implements OnInit {
   }
 
   irParaNaoConformidades() {
+    let conformes: number[] = [];
+    let naoConformes: number[] = [];
+
+    this.servicos.forEach(e => {
+      if(e.checked) {
+        conformes.push(e.id);
+      } else  {
+        naoConformes.push(e.id);
+      }
+    })
+
     let params = {
+      data: this.data, 
       idLocal: this.idLocal, 
       idEquipe: this.idEquipe, 
       idItem: this.idItem,
-      servicos: this.servicos
+      servicosConformes: conformes,
+      servicosNaoConformes: naoConformes,
     }
     this.router.navigate(['inspecao/naoConformidade'], {queryParams: params});
   }

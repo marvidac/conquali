@@ -12,7 +12,7 @@
     <ion-label>Local: {{idLocal}}</ion-label>
     <ion-label>Equipe: {{idEquipe}}</ion-label>
   </ion-item>
-  <ion-button expand="block" color="secondary" size="large" *ngFor="let item of itens" [routerLink]="['/inspecao/servico', idLocal, idEquipe, item.id]">
+  <ion-button expand="block" color="secondary" size="large" *ngFor="let item of itens" (click)="irParaServicos(item)">
     {{item.nome}}
   </ion-button>
 </ion-content>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Local } from '../../local/shared/local';
 import { LocalService } from '../../local/shared/local.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-local-form',
@@ -12,13 +13,14 @@ export class InspecaoLocalFormPage implements OnInit {
   idParam:number;
   title: string = 'Nova Inspeção';
 
-  data: string;
+  data: string = '';
   locais: Local[] = [];
   localSelecionado: Local;
 
   constructor(
     private localService: LocalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,4 +47,11 @@ export class InspecaoLocalFormPage implements OnInit {
     this.locais = await this.localService.getAll();
   }
   
+  change(event) {
+    this.data = event.target.value;
+  }
+  
+  irParaEquipe(local: Local) {
+    this.router.navigate(['inspecao/equipe', local.id, moment(this.data).format('YYYY-MM-DD')]);
+  }
 }

@@ -13,7 +13,7 @@
     <ion-label>Dia/Mês/Ano</ion-label>
     <ion-datetime displayFormat="DD/MM/YYYY" (ionChange)="change($event)" placeholder="Selecione a data"></ion-datetime>
   </ion-item>
-  <ion-button expand="block" color="secondary" size="large" *ngFor="let local of locais" [routerLink]="['/inspecao/equipe', local.id]">
+  <ion-button expand="block" color="secondary" size="large" *ngFor="let local of locais" (click)="irParaEquipe(local)">
     {{local.nome}}
   </ion-button>
 </ion-content>
