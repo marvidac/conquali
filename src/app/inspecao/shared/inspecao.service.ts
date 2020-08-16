@@ -7,7 +7,9 @@ import { Inspecao } from './inspecao';
 })
 export class InspecaoService {
 
-  constructor(private db: DatabaseService) { }
+  constructor(private db: DatabaseService) { 
+    console.log('inspecao.service.ts');
+  }
 
   save(inspecao: Inspecao) {
     if(inspecao.id > 0) {

@@ -9,9 +9,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let servico of servicosNaoConformes; index as i;">
-      <ion-label>{{servico.nome}}</ion-label>
-      <ion-textarea clearOnEdit="true" rows="6" cols="20" [(ngModel)]="servicosNaoConformes[i].obs"></ion-textarea>
+    <ion-item *ngFor="let itemServico of itemServicoNaoConformes; index as i;">
+      <ion-label>{{itemServico.servicoNome}}</ion-label>
+      <ion-textarea clearOnEdit="true" rows="6" cols="20" [(ngModel)]="itemServicoNaoConformes[i].obs"></ion-textarea>
     </ion-item>
   </ion-list>
 </ion-content>

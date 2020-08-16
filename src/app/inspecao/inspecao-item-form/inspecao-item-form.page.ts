@@ -29,9 +29,13 @@ export class InspecaoItemFormPage implements OnInit {
   ngOnInit() {
     console.log('ngOnInit inspecao-item-form.page.ts');
     
-    this.data = this.route.snapshot.paramMap.get('data');
     this.idLocal = parseInt(this.route.snapshot.paramMap.get('idLocal'));
     this.idEquipe = parseInt(this.route.snapshot.paramMap.get('idEquipe'));
+
+    let questoesParam = this.route
+      .queryParamMap.forEach(par => {
+        this.data = par.get('data');
+      });
     
     this.loadAllItens();
   }

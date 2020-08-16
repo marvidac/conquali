@@ -42,7 +42,16 @@ export class ItemServicoService {
   }
 
   async getById(id: number) {
-    const sql = 'SELECT * FROM item_servico where id = ?';
+    const sql = `SELECT 
+                    its.id, 
+                    it.id as item, 
+                    it.nome as itemNome, 
+                    ser.id as servico, 
+                    ser.nome as servicoNome 
+                FROM item_servico its 
+                INNER JOIN servico ser on ser.id = its.servico 
+                INNER JOIN item it on it.id = its.item 
+                WHERE its.id = ?`;
     const data = [id];
     const result = await this.db.executeSQL(sql, data);
     const rows = result.rows;
@@ -51,7 +60,9 @@ export class ItemServicoService {
       const item = rows.item(0);
       itemServico.id = item.id;
       itemServico.item = item.item;
+      itemServico.itemNome = item.itemNome;
       itemServico.servico = item.servico;
+      itemServico.servicoNome = item.servicoNome;
     }
 
     return itemServico;

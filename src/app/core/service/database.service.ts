@@ -38,6 +38,7 @@ export class DatabaseService {
     sqls.push('CREATE TABLE equipe(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, status BOOL, created TEXT NOT NULL);');
     sqls.push('CREATE TABLE equipe_funcionario(id INTEGER PRIMARY KEY AUTOINCREMENT, equipe INTEGER NOT NULL, funcionario INTEGER NOT NULL, created TEXT NOT NULL, FOREIGN KEY(equipe) REFERENCES equipe(id), FOREIGN KEY(funcionario) REFERENCES funcionario(id));');
     sqls.push('CREATE TABLE local(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, status BOOL, created TEXT NOT NULL);');
+    
     sqls.push('DROP TABLE inspecao;');
     sqls.push('CREATE TABLE inspecao(id INTEGER PRIMARY KEY AUTOINCREMENT, local INTEGER NOT NULL, equipe INTEGER NOT NULL, data TEXT NOT NULL, created TEXT NOT NULL);');
     sqls.push('CREATE TABLE inspecao_item_servico(id INTEGER PRIMARY KEY AUTOINCREMENT, inspecao INTEGER NOT NULL, item_servico INTEGER NOT NULL, conforme BOOL NOT NULL, obs TEXT, created TEXT NOT NULL, FOREIGN KEY(inspecao) REFERENCES inspecao(id), FOREIGN KEY(item_servico) REFERENCES item_servico(id));');*/
